@@ -1,23 +1,16 @@
 # 🏋️ Kurnool Fitness Centre — Full-Stack Gym Management & E-Commerce Platform
 
-[![Node.js](https://img.shields.io/badge/Node.js-v20+-68A063?style=flat-square&logo=node.js&logoColor=white)](https://nodejs.org/)
-[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-14%2B-336791?style=flat-square&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
-[![React](https://img.shields.io/badge/React-18-61DAFB?style=flat-square&logo=react&logoColor=black)](https://reactjs.org/)
-[![Vite](https://img.shields.io/badge/Vite-5-646CFF?style=flat-square&logo=vite&logoColor=white)](https://vitejs.dev/)
-[![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3.4-38B2AC?style=flat-square&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
-
 ---
 
 ## 📌 Executive Summary
 
-**Kurnool Fitness Centre** is a production-grade, multi-tier gym operations, e-commerce, and facility scheduling platform engineered for the premier fitness hub in Kurnool, Andhra Pradesh. The platform solves high-concurrency booking bottlenecks, automates membership lifecycles with background cron workers, and provides executive-level analytical intelligence via advanced PostgreSQL window functions and time-series aggregation.
+**Kurnool Fitness Centre** is a production-grade, multi-tier gym operations, e-commerce, and facility scheduling platform engineered for the premier fitness hub in Kurnool, Andhra Pradesh. The platform solves high-concurrency booking bottlenecks, automates membership lifecycles with background cron workers, and provides centralized management and facility metrics.
 
 ### Key Capabilities
 - **Public Athlete Portal**: High-conversion landing page with modern emerald/mint SaaS aesthetics, plan subscriptions, supplements e-commerce store with persistent cart, trainer schedules, and member reviews.
 - **Member Self-Service Dashboard**: Manage subscription status, view renewal dates, download tax invoices, track order history, and book sessions.
 - **High-Concurrency Slot Booking Engine**: Pessimistic row-level locking (`FOR UPDATE`) within explicit database transactions (`BEGIN` ... `COMMIT` / `ROLLBACK`) preventing seat overbooking and race conditions.
 - **Automated Background Maintenance**: Cron-driven worker executing daily at midnight to batch-transition expired memberships and log tamper-evident records to `audit_logs`.
-- **Advanced Executive SQL Analytics**: Single-query computation of **Monthly Recurring Revenue (MRR)**, **Capacity Utilization Rate**, and **Retention/Churn Rates** using SQL Window Functions (`COUNT(*) OVER ()`).
 - **Comprehensive Admin Dashboard**: Full CRUD over members, trainers, timetable slots, orders, inventory, and dynamic site copy.
 
 ---
@@ -140,70 +133,6 @@ Implemented with `node-cron` in [`backend/jobs/membershipExpiryJob.js`](backend/
 ### Manual Worker Execution Endpoint
 - `POST /api/admin/jobs/trigger-expiry-check`: Protected by JWT role verification (`admin`). Evaluators can trigger the job on-demand directly from the **Admin Dashboard** action bar.
 - `GET /api/admin/jobs/audit-logs`: Retrieves system maintenance history.
-
----
-
-## 📊 Advanced SQL Analytics & Dashboard Window Functions
-
-Kurnool Fitness Centre replaces client-side filtering with server-side database aggregations in [`backend/controllers/dashboardController.js`](backend/controllers/dashboardController.js):
-
-### 1. Monthly Recurring Revenue (MRR)
-Normalized subscription revenue across multi-month plans in active status:
-```sql
-SELECT 
-  COALESCE(ROUND(SUM(mp.price / GREATEST(mp.duration_months, 1)), 2), 0)::float AS mrr,
-  COUNT(m.id)::int AS active_subscriptions
-FROM memberships m
-JOIN membership_plans mp ON mp.id = m.plan_id
-WHERE m.status = 'active' AND m.end_date >= CURRENT_DATE;
-```
-
-### 2. Time-Series 6-Month Sales Trend
-Uses PostgreSQL's native `generate_series` function to prevent gaps when no sales occurred:
-```sql
-SELECT 
-  to_char(date_trunc('month', d.month), 'Mon YYYY') AS month_label,
-  COALESCE(SUM(p.amount), 0)::float AS revenue,
-  COUNT(p.id)::int AS transaction_count
-FROM generate_series(
-  date_trunc('month', CURRENT_DATE) - INTERVAL '5 months',
-  date_trunc('month', CURRENT_DATE),
-  '1 month'
-) AS d(month)
-LEFT JOIN payments p ON date_trunc('month', COALESCE(p.paid_at::timestamptz, p.created_at)) = d.month
-  AND p.status = 'paid'
-GROUP BY d.month
-ORDER BY d.month ASC;
-```
-
-### 3. Member Retention & Churn (Window Function)
-Evaluates pool retention against churned cohorts in a single efficient query scan:
-```sql
-WITH member_cohorts AS (
-  SELECT 
-    id,
-    status,
-    COUNT(*) OVER () AS total_pool,
-    COUNT(CASE WHEN status = 'active' THEN 1 END) OVER () AS active_pool,
-    COUNT(CASE WHEN status IN ('expired', 'cancelled') THEN 1 END) OVER () AS churned_pool
-  FROM members
-)
-SELECT 
-  COALESCE(MAX(total_pool), 0)::int AS total_members,
-  COALESCE(MAX(active_pool), 0)::int AS active_members,
-  COALESCE(MAX(churned_pool), 0)::int AS churned_members,
-  CASE 
-    WHEN COALESCE(MAX(total_pool), 0) > 0 
-    THEN ROUND((MAX(active_pool)::numeric / MAX(total_pool)::numeric) * 100, 2)::float
-    ELSE 0.0 
-  END AS retention_rate_pct,
-  CASE 
-    WHEN COALESCE(MAX(total_pool), 0) > 0 
-    THEN ROUND((MAX(churned_pool)::numeric / MAX(total_pool)::numeric) * 100, 2)::float
-    ELSE 0.0 
-  END AS churn_rate_pct
-FROM member_cohorts;
-```
 
 ---
 
