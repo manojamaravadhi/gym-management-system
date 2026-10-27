@@ -56,7 +56,7 @@ export default function Footer() {
         </div>
       </div>
       <div className="border-t border-ink-800 py-5 text-center text-xs text-gray-500">
-        © {new Date().getFullYear()} Kurnool Fitness Centre · Engineered by Manoj Kumar &lt;123cs0023@iiitk.ac.in&gt;. All Rights Reserved.
+        © {new Date().getFullYear()} Kurnool Fitness Centre. All Rights Reserved.
       </div>
     </footer>
   );

@@ -1,6 +1,5 @@
 -- ============================================================================
 -- Seed data — realistic demo content for KURNOOL FITNESS CENTRE
--- Author: Manoj Kumar <123cs0023@iiitk.ac.in>
 -- Run AFTER schema.sql:  psql -U postgres -d gym_management -f database/seed.demo.sql
 -- ----------------------------------------------------------------------------
 -- Demo credentials:
@@ -143,7 +142,7 @@ INSERT INTO appointments (slot_id, member_id, trainer_id, service_id, customer_n
 
 -- AUDIT LOGS -----------------------------------------------------------------
 INSERT INTO audit_logs (event_type, description, metadata) VALUES
-('SYSTEM_INITIALIZATION', 'Kurnool Fitness Centre dataset initialized with concurrency-controlled timetable and Indian athletic profiles.', '{"initialized_by": "Manoj Kumar", "version": "2.0.0"}');
+('SYSTEM_INITIALIZATION', 'Kurnool Fitness Centre dataset initialized with concurrency-controlled timetable and Indian athletic profiles.', '{"initialized_by": "System Admin", "version": "2.0.0"}');
 
 -- REVIEWS (Indian Members) ----------------------------------------------------
 INSERT INTO reviews (member_id, customer_name, role_label, rating, message, is_approved) VALUES
@@ -184,4 +183,4 @@ INSERT INTO site_content (key, value) VALUES
 ('social_facebook', 'https://facebook.com'),
 ('social_instagram','https://instagram.com'),
 ('social_youtube',  'https://youtube.com'),
-('footer_tagline',  'Kurnool Fitness Centre · Engineered by Manoj Kumar');
+('footer_tagline',  'Kurnool Fitness Centre · Premium Gym & Training');

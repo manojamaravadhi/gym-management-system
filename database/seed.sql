@@ -1,6 +1,5 @@
 -- ============================================================================
 -- Seed data — KURNOOL FITNESS CENTRE (CLEAN start)
--- Author: Manoj Kumar <123cs0023@iiitk.ac.in>
 -- Run AFTER schema.sql:  psql "$DATABASE_URL" -f database/seed.sql
 -- ----------------------------------------------------------------------------
 -- Admin login ->  admin@kurnoolfitness.com  /  Admin@123
@@ -35,4 +34,4 @@ INSERT INTO site_content (key, value) VALUES
 ('social_facebook', 'https://facebook.com'),
 ('social_instagram','https://instagram.com'),
 ('social_youtube',  'https://youtube.com'),
-('footer_tagline',  'Kurnool Fitness Centre · Engineered by Manoj Kumar');
+('footer_tagline',  'Kurnool Fitness Centre · Premium Gym & Training');

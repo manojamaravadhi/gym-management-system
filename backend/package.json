@@ -2,7 +2,7 @@
   "name": "kurnool-fitness-centre-core",
   "version": "1.0.0",
   "description": "Production REST API for Kurnool Fitness Centre — Full-Stack Gym Management & E-Commerce Platform",
-  "author": "Manoj Kumar <123cs0023@iiitk.ac.in>",
+  "author": "Kurnool Fitness Centre",
   "license": "MIT",
   "main": "server.js",
   "type": "commonjs",

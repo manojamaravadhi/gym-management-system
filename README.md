@@ -7,9 +7,6 @@
 [![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3.4-38B2AC?style=flat-square&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](https://opensource.org/licenses/MIT)
 
-> **Engineered by:** **Manoj Kumar** (<123cs0023@iiitk.ac.in>)  
-> **Portfolio Objective:** Full-Stack & Associate Product Engineer Portfolio (DeltaX)
-
 ---
 
 ## 📌 Executive Summary
@@ -341,9 +338,6 @@ The platform is optimized for zero-cost production hosting on modern serverless/
 
 ---
 
-## 👨‍💻 Author
+## 📄 License
 
-**Manoj Kumar**  
-- **Email**: [123cs0023@iiitk.ac.in](mailto:123cs0023@iiitk.ac.in)  
-- **Role Target**: Associate Product Engineer / Backend Engineer (DeltaX)  
-- **Codebase License**: [MIT License](LICENSE)
+This project is licensed under the [MIT License](LICENSE).

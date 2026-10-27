@@ -1,7 +1,6 @@
 -- ============================================================================
 -- KURNOOL FITNESS CENTRE — Premium Gym Management & E-Commerce Platform
 -- PostgreSQL Production Schema
--- Author: Manoj Kumar <123cs0023@iiitk.ac.in>
 -- ============================================================================
 -- Run:  psql -U postgres -d gym_management -f database/schema.sql
 -- ============================================================================

@@ -1,6 +1,5 @@
 # Deployment Guide — Kurnool Fitness Centre
 
-**Author**: Manoj Kumar (<123cs0023@iiitk.ac.in>)  
 **Stack**: React (Vite/Tailwind) on Vercel · Express API on Render/Railway · PostgreSQL on Neon/Supabase
 
 ---
