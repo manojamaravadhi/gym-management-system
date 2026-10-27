@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { color-scheme: dark; }
+
+html { scroll-behavior: smooth; }
+html, body, #root { height: 100%; }
+
+body {
+  @apply bg-[#0b0f19] text-slate-100 font-sans antialiased;
+}
+
+/* Brand text selection */
+::selection { background: rgba(16, 185, 129, 0.35); color: #fff; }
+
+/* Global smooth transitions for interactive elements */
+a, button { transition: color .15s ease, background-color .15s ease, border-color .15s ease, transform .15s ease, box-shadow .15s ease; }
+
+/* Clean slate scrollbar */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: #0b0f19; }
+::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #475569; }
+
+@layer components {
+  .container-x { @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8; }
+
+  .btn { @apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-sm font-semibold transition-all duration-150 disabled:opacity-50 disabled:cursor-not-allowed; }
+  .btn-primary { @apply btn bg-emerald-500 hover:bg-emerald-600 active:bg-emerald-700 text-slate-950 font-semibold shadow-md shadow-emerald-500/20 rounded-lg transition-all; }
+  .btn-outline { @apply btn border border-slate-700 text-slate-200 hover:border-emerald-500 hover:text-white hover:bg-slate-800/60; }
+  .btn-ghost { @apply btn text-slate-300 hover:bg-slate-800/70 hover:text-white; }
+
+  .card { @apply rounded-xl border border-slate-800 bg-slate-900/90 shadow-card; }
+  .input { @apply w-full rounded-lg border border-slate-700 bg-slate-900 px-3.5 py-2.5 text-sm text-slate-100 placeholder-slate-500 outline-none transition focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500/30; }
+  .label { @apply mb-1.5 block text-xs font-medium uppercase tracking-wider text-slate-400; }
+
+  .eyebrow { @apply text-emerald-400 text-xs font-semibold uppercase tracking-[0.2em]; }
+  .section-title { @apply font-heading text-3xl sm:text-4xl lg:text-5xl uppercase leading-tight text-white; }
+
+  /* Reusable subtle hover lift for cards */
+  .hover-lift { @apply transition duration-200 hover:-translate-y-1 hover:border-slate-700; }
+}
+
+/* Masonry-ish gallery via CSS columns */
+.masonry { column-count: 1; column-gap: 1rem; }
+@media (min-width: 640px) { .masonry { column-count: 2; } }
+@media (min-width: 1024px) { .masonry { column-count: 3; } }
+.masonry > * { break-inside: avoid; margin-bottom: 1rem; }
