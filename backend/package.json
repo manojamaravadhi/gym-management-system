@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "Production REST API for Kurnool Fitness Centre — Full-Stack Gym Management & E-Commerce Platform",
   "author": "Kurnool Fitness Centre",
-  "license": "MIT",
   "main": "server.js",
   "type": "commonjs",
   "scripts": {

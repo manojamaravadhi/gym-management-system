@@ -5,7 +5,6 @@
 [![React](https://img.shields.io/badge/React-18-61DAFB?style=flat-square&logo=react&logoColor=black)](https://reactjs.org/)
 [![Vite](https://img.shields.io/badge/Vite-5-646CFF?style=flat-square&logo=vite&logoColor=white)](https://vitejs.dev/)
 [![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3.4-38B2AC?style=flat-square&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](https://opensource.org/licenses/MIT)
 
 ---
 
@@ -335,9 +334,3 @@ The platform is optimized for zero-cost production hosting on modern serverless/
 | `GET` | `/api/plans` | Public | List active membership plans |
 | `GET` | `/api/products` | Public | E-commerce catalog |
 | `POST` | `/api/orders` | Member | Process e-commerce cart purchase |
-
----
-
-## 📄 License
-
-This project is licensed under the [MIT License](LICENSE).
