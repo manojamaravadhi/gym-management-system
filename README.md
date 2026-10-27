@@ -33,24 +33,24 @@ graph TD
     Proxy["Reverse Proxy / Edge CDN (Vercel / Nginx)"]
     API["Express REST API (Node.js 20)"]
     Worker["Background Cron Worker (node-cron)"]
-    DB[("PostgreSQL Database (Neon / Supabase / Local)")]
+    DB[("PostgreSQL Database")]
 
-    Client -->|HTTPS /api| Proxy
-    Proxy -->|Load Balanced Traffic| API
+    Client -->|HTTPS Traffic| Proxy
+    Proxy -->|Reverse Proxy| API
     Worker -->|Scheduled Maintenance| DB
-    API -->|Connection Pool (pg.Pool)| DB
+    API -->|Connection Pool| DB
 
-    subgraph "Backend Services"
+    subgraph Backend Services
         API
         Worker
     end
 
-    subgraph "Database Layer (PostgreSQL)"
+    subgraph Database Layer
         DB
         T1["timetable_slots (FOR UPDATE Locking)"]
         T2["memberships (State Machine)"]
         T3["audit_logs (Immutable Audit Trail)"]
-        T4["orders & order_items"]
+        T4["orders and order_items"]
     end
 ```
 
